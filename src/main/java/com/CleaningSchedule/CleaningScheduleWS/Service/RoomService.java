@@ -50,6 +50,13 @@ public class RoomService {
         roomRepository.delete(this.convertDtoToEntity(roomDTO));
     }
 
+    public void deleteRoomId(Integer roomId) {
+        Optional<Room> roomOptional =  roomRepository.findById(roomId);
+        if (roomOptional.isPresent()) {
+            Room room = roomOptional.get();
+            roomRepository.delete(room);
+        }
+    }
     public RoomDTO convertEntityToDto(Room roomEntity) {
         return RoomDTO.builder()
                 .id(roomEntity.getId())
