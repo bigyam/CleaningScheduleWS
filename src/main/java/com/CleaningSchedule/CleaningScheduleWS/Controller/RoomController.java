@@ -36,14 +36,19 @@ public class RoomController {
         RoomDTO response;
         try {
             response = roomService.getRoom(roomId);
-        } catch (Exception e ) {
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
     }
 
-    //not tested
+    /**
+     * null roomId = new room
+     *
+     * @param roomDTO
+     * @return
+     */
     @PostMapping
     public ResponseEntity<Object> addRoom(@RequestBody RoomDTO roomDTO) {
         try {
@@ -54,9 +59,19 @@ public class RoomController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    //not tested
-    @PutMapping("/{id}")
-    public ResponseEntity<Object> updateRoom(@PathVariable Integer roomId, @RequestBody RoomDTO roomDTO) {
+    /**
+     * Object to send
+     * {
+     * "id": 3,
+     * "name": "test",
+     * "complexity": 1
+     * }
+     *
+     * @param roomDTO
+     * @return
+     */
+    @PutMapping
+    public ResponseEntity<Object> updateRoom(@RequestBody RoomDTO roomDTO) {
         try {
             roomService.updateRoom(roomDTO);
         } catch (Exception e) {
@@ -65,9 +80,8 @@ public class RoomController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    //needs to be finished
-    @DeleteMapping //need mapping
-    public ResponseEntity<Object> deleteRoom(@RequestParam Integer roomId) {
+    @DeleteMapping
+    public ResponseEntity<Object> deleteRoom(@RequestParam(value = "id") Integer roomId) {
         try {
             roomService.deleteRoomId(roomId);
         } catch (Exception e) {
@@ -75,6 +89,6 @@ public class RoomController {
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    //nov 22 2020: finished service class for room.  need to finish controller class
-    //nov 29 2020: fix the return for each method to one return.  Set httpstatus as var in catch.
 }
+    //nov 29 2020: fix the return for each method to one return.  Set httpstatus as var in catch.
+    //Dec 24 2020: controller class endpoints working for room, primiliary testing OK.  still need to do nov 29 item.

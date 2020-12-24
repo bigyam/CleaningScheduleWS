@@ -25,12 +25,16 @@ public class RoomService {
     }
 
     public RoomDTO getRoom(Integer id) {
-        Room room = roomRepository.findById(id).get(); //get() needs a ispresent check
+        Room room = roomRepository.findById(id).get(); //TODO: get() needs a ispresent check
         return this.convertEntityToDto(room);
     }
 
-    public void addRoom(RoomDTO roomDTO) {
-        roomRepository.save(this.convertDtoToEntity(roomDTO));
+    public void addRoom(RoomDTO roomDTO) throws Exception{
+        if(roomDTO.getId() == null) {
+            roomRepository.save(this.convertDtoToEntity(roomDTO));
+        } else {
+            throw new Exception("Is not new room");
+        }
     }
 
     public RoomDTO updateRoom(RoomDTO roomDTO) {
