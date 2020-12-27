@@ -29,8 +29,8 @@ public class RoomService {
         return this.convertEntityToDto(room);
     }
 
-    public void addRoom(RoomDTO roomDTO) throws Exception{
-        if(roomDTO.getId() == null) {
+    public void addRoom(RoomDTO roomDTO) throws Exception {
+        if (roomDTO.getId() == null) {
             roomRepository.save(this.convertDtoToEntity(roomDTO));
         } else {
             throw new Exception("Is not new room");

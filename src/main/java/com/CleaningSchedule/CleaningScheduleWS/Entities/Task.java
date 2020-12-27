@@ -1,6 +1,7 @@
 package com.CleaningSchedule.CleaningScheduleWS.Entities;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Task {
     @Id
     @SequenceGenerator(name="TASK_ID_SEQ", sequenceName = "TASK_ID_SEQ", allocationSize = 1)
