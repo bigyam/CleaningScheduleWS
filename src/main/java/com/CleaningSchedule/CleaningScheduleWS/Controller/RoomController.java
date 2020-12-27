@@ -3,7 +3,6 @@ package com.CleaningSchedule.CleaningScheduleWS.Controller;
 import com.CleaningSchedule.CleaningScheduleWS.DTO.RoomDTO;
 import com.CleaningSchedule.CleaningScheduleWS.Service.RoomService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,25 +21,31 @@ public class RoomController {
     @GetMapping("/all")
     public ResponseEntity<Object> getAllRooms() {
         List<RoomDTO> response = new ArrayList<>();
+        HttpStatus httpStatus;
         try {
             response = roomService.getAllRooms();
+            httpStatus = HttpStatus.OK;
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
 
-        return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
+        return new ResponseEntity<>(response, new HttpHeaders(), httpStatus);
     }
 
+    //TODO: room not found error log?
     @GetMapping
     public ResponseEntity<Object> getRoom(@RequestParam(value = "id") Integer roomId) {
         RoomDTO response;
+        HttpStatus httpStatus;
         try {
             response = roomService.getRoom(roomId);
+            httpStatus = HttpStatus.OK;
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            response = null;
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
 
-        return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
+        return new ResponseEntity<>(response, new HttpHeaders(), httpStatus);
     }
 
     /**
@@ -51,12 +56,14 @@ public class RoomController {
      */
     @PostMapping
     public ResponseEntity<Object> addRoom(@RequestBody RoomDTO roomDTO) {
+        HttpStatus httpStatus;
         try {
             roomService.addRoom(roomDTO);
+            httpStatus = HttpStatus.OK;
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(httpStatus);
     }
 
     /**
@@ -72,23 +79,25 @@ public class RoomController {
      */
     @PutMapping
     public ResponseEntity<Object> updateRoom(@RequestBody RoomDTO roomDTO) {
+        HttpStatus httpStatus;
         try {
             roomService.updateRoom(roomDTO);
+            httpStatus = HttpStatus.OK;
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(httpStatus);
     }
 
     @DeleteMapping
     public ResponseEntity<Object> deleteRoom(@RequestParam(value = "id") Integer roomId) {
+        HttpStatus httpStatus;
         try {
             roomService.deleteRoomId(roomId);
+            httpStatus = HttpStatus.OK;
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(httpStatus);
     }
 }
-    //nov 29 2020: fix the return for each method to one return.  Set httpstatus as var in catch.
-    //Dec 24 2020: controller class endpoints working for room, primiliary testing OK.  still need to do nov 29 item.
