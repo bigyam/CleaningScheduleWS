@@ -1,6 +1,7 @@
 package com.CleaningSchedule.CleaningScheduleWS.Entities;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class ScheduleItem {
     @Id
     @SequenceGenerator(name="SCHEDULEITEM_ID_SEQ", sequenceName = "SCHEDULEITEM_ID_SEQ", allocationSize = 1)
