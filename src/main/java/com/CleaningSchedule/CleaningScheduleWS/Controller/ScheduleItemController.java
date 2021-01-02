@@ -32,6 +32,19 @@ public class ScheduleItemController {
         return new ResponseEntity<>(response, new HttpHeaders(), httpStatus);
     }
 
+    /**
+     * {
+     *         "id": null,
+     *         "yearScope": 2,
+     *         "lastComplete": null,
+     *         "taskId": 3,
+     *         "roomId": 3,
+     *         "active": true,
+     *         "complete": false
+     * }
+     * @param scheduleItemDTO
+     * @return
+     */
     @PostMapping
     public ResponseEntity<Object> addScheduleItem(@RequestBody ScheduleItemDTO scheduleItemDTO) {
         HttpStatus httpStatus;

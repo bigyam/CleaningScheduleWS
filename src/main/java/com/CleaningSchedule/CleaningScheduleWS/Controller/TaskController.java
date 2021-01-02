@@ -32,6 +32,14 @@ public class TaskController {
         return new ResponseEntity<>(response, new HttpHeaders(), httpStatus);
     }
 
+    /**
+     * {
+     *     "id": null,
+     *     "name": "test"
+     * }
+     * @param taskDTO
+     * @return
+     */
     @PostMapping
     public ResponseEntity<Object> addTask(@RequestBody TaskDTO taskDTO) {
         HttpStatus httpStatus;
