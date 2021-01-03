@@ -29,15 +29,27 @@ public class ScheduleItemService {
         return itemList.stream().map(this::convertEntityToDto).collect(Collectors.toList());
     }
 
-    public void addItem(ScheduleItemDTO scheduleItemDTO) throws Exception{
-        if (scheduleItemDTO.getId() == null) {
-            scheduleItemRepository.save(this.convertDtoToEntity(scheduleItemDTO));
-        } else {
-            throw new Exception("Is not new item");
+    public void modifyScheduleItems(List<ScheduleItemDTO> scheduleItemList) throws Exception{
+        Room room;
+        Task task;
+        ScheduleItem scheduleItem;
+        for(ScheduleItemDTO item : scheduleItemList) {
+            room = roomRepository.findById(item.getRoom_id()).get();
+            task = taskRepository.findById(item.getTask_id()).get();
+            scheduleItem = scheduleItemRepository.findByYearScopeAndRoomAndTask(item.getYearScope(), room, task);
+
+            if (scheduleItem == null) {
+                scheduleItemRepository.save(this.convertDtoToEntity(item));
+            } else {
+                scheduleItem.setYearScope(item.getYearScope());
+                scheduleItem.setRoom(room);
+                scheduleItem.setTask(task);
+                scheduleItemRepository.save(scheduleItem);
+            }
         }
     }
 
-    public ScheduleItemDTO updateItem(ScheduleItemDTO scheduleItemDTO) {
+    /*public ScheduleItemDTO updateItem(ScheduleItemDTO scheduleItemDTO) {
         Optional<ScheduleItem> itemOptional = scheduleItemRepository.findById(scheduleItemDTO.getId());
         if (itemOptional.isPresent()) {
             ScheduleItem item = itemOptional.get();
@@ -60,13 +72,15 @@ public class ScheduleItemService {
         } else {
             return null;
         }
-    }
+    }*/
 
-    public void deleteItemId(Integer itemId) {
-        Optional<ScheduleItem> itemOptional = scheduleItemRepository.findById(itemId);
-        if (itemOptional.isPresent()) {
-            ScheduleItem scheduleItem = itemOptional.get();
-            scheduleItemRepository.delete(scheduleItem);
+    public void deleteItems(List<ScheduleItemDTO> deleteList) {
+        Optional<ScheduleItem> optionalScheduleItem;
+        for(ScheduleItemDTO item : deleteList) {
+            optionalScheduleItem = scheduleItemRepository.findById(item.getId());
+            if (optionalScheduleItem.isPresent()) {
+                scheduleItemRepository.delete(this.convertDtoToEntity(item));
+            }
         }
     }
 
@@ -74,23 +88,23 @@ public class ScheduleItemService {
         return ScheduleItemDTO.builder()
                 .id(scheduleItemEntity.getId())
                 .yearScope(scheduleItemEntity.getYearScope())
-                .isActive(scheduleItemEntity.isActive())
-                .isComplete(scheduleItemEntity.isComplete())
+                .isActive(scheduleItemEntity.getIsActive())
+                .isComplete(scheduleItemEntity.getIsComplete())
                 .lastComplete(scheduleItemEntity.getLastComplete())
-                .roomId(scheduleItemEntity.getRoom().getId())
-                .taskId(scheduleItemEntity.getTask().getId())
+                .room_id(scheduleItemEntity.getRoom().getId())
+                .task_id(scheduleItemEntity.getTask().getId())
                 .build();
     }
 
     private ScheduleItem convertDtoToEntity(ScheduleItemDTO scheduleItemDTO) {
         return ScheduleItem.builder()
-                .id(scheduleItemDTO.getId())
+                .id(scheduleItemDTO.getId() != null ? scheduleItemDTO.getId() : null)
                 .yearScope(scheduleItemDTO.getYearScope())
-                .isActive(scheduleItemDTO.isActive())
-                .isComplete(scheduleItemDTO.isComplete())
-                .lastComplete(scheduleItemDTO.getLastComplete() == null ? null : scheduleItemDTO.getLastComplete())
-                .room(roomRepository.findById(scheduleItemDTO.getRoomId()).get())
-                .task(taskRepository.findById(scheduleItemDTO.getTaskId()).get())
+                .isActive(scheduleItemDTO.getIsActive() != null ? scheduleItemDTO.getIsActive() : null)
+                .isComplete(scheduleItemDTO.getIsComplete() != null ? scheduleItemDTO.getIsComplete() : null)
+                .lastComplete(scheduleItemDTO.getLastComplete() != null ? scheduleItemDTO.getLastComplete() : null)
+                .room(roomRepository.findById(scheduleItemDTO.getRoom_id()).get())
+                .task(taskRepository.findById(scheduleItemDTO.getTask_id()).get())
                 .build();
     }
 }

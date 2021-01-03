@@ -1,13 +1,11 @@
 package com.CleaningSchedule.CleaningScheduleWS.DTO;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Builder
 public class TaskDTO {
     private Integer id;

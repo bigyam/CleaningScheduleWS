@@ -1,18 +1,16 @@
 package com.CleaningSchedule.CleaningScheduleWS.Entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "room")
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Builder
 public class Room {
 
@@ -28,5 +26,4 @@ public class Room {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "room")
     private List<ScheduleItem> ScheduleItems;
-    //id, room_name, complexity
 }

@@ -42,14 +42,14 @@ public class ScheduleItemController {
      *         "active": true,
      *         "complete": false
      * }
-     * @param scheduleItemDTO
+     * @param scheduleItemList
      * @return
      */
     @PostMapping
-    public ResponseEntity<Object> addScheduleItem(@RequestBody ScheduleItemDTO scheduleItemDTO) {
+    public ResponseEntity<Object> modifyScheduleItem(@RequestBody List<ScheduleItemDTO> scheduleItemList) {
         HttpStatus httpStatus;
         try {
-            scheduleItemService.addItem(scheduleItemDTO);
+            scheduleItemService.modifyScheduleItems(scheduleItemList);
             httpStatus = HttpStatus.OK;
         } catch (Exception e) {
             System.out.println("e: " + e.getMessage());
@@ -58,7 +58,7 @@ public class ScheduleItemController {
         return new ResponseEntity<>(httpStatus);
     }
 
-    @PutMapping
+    /*@PutMapping
     public ResponseEntity<Object> updateScheduleItem(@RequestBody ScheduleItemDTO scheduleItemDTO) {
         HttpStatus httpStatus;
         try {
@@ -68,13 +68,13 @@ public class ScheduleItemController {
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(httpStatus);
-    }
+    }*/
 
     @DeleteMapping
-    public ResponseEntity<Object> deleteItem(@RequestParam(value = "id") Integer itemId) {
+    public ResponseEntity<Object> deleteItems(@RequestBody List<ScheduleItemDTO> deleteList) {
         HttpStatus httpStatus;
         try {
-            scheduleItemService.deleteItemId(itemId);
+            scheduleItemService.deleteItems(deleteList);
             httpStatus = HttpStatus.OK;
         } catch (Exception e) {
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;

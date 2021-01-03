@@ -1,18 +1,16 @@
 package com.CleaningSchedule.CleaningScheduleWS.Entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "schedule_item")
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Builder
 public class ScheduleItem {
     @Id
@@ -23,9 +21,9 @@ public class ScheduleItem {
     @Column(name = "year_scope")
     private Integer yearScope;
     @Column(name = "is_Active")
-    private boolean isActive;
+    private Boolean isActive;
     @Column(name = "is_Complete")
-    private boolean isComplete;
+    private Boolean isComplete;
     @Column(name = "last_complete")
     private LocalDateTime lastComplete;
 

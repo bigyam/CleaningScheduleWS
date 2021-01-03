@@ -17,7 +17,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and();
+        http.cors().and().csrf().disable();
     }
 
     @Bean
@@ -25,10 +25,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080"));
         configuration.setAllowCredentials(true);
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Authorization", "Cache-Control", "Content-Type", "xsrfheadername", "xsrfcookiename"
-                , "X-Requested-With", "XSRF-TOKEN", "Accept", "x-xsrf-token", "withcredentials", "x-csrftoken"));
-        configuration.setExposedHeaders(Arrays.asList("custom-header1", "custom-header2"));
+        configuration.setAllowedMethods(Arrays.asList("*"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
