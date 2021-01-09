@@ -44,6 +44,7 @@ public class ScheduleItemService {
                 scheduleItem.setYearScope(item.getYearScope());
                 scheduleItem.setRoom(room);
                 scheduleItem.setTask(task);
+                scheduleItem.setIsActive(item.getIsActive());
                 scheduleItemRepository.save(scheduleItem);
             }
         }
@@ -76,10 +77,13 @@ public class ScheduleItemService {
 
     public void deleteItems(List<ScheduleItemDTO> deleteList) {
         Optional<ScheduleItem> optionalScheduleItem;
+        ScheduleItem itemEntity;
         for(ScheduleItemDTO item : deleteList) {
             optionalScheduleItem = scheduleItemRepository.findById(item.getId());
             if (optionalScheduleItem.isPresent()) {
-                scheduleItemRepository.delete(this.convertDtoToEntity(item));
+                itemEntity = this.convertDtoToEntity(item);
+                itemEntity.setIsActive(false);
+                scheduleItemRepository.save(itemEntity);
             }
         }
     }
