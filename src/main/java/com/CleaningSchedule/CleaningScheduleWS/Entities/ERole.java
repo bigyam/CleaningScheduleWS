@@ -1,6 +1,6 @@
 package com.CleaningSchedule.CleaningScheduleWS.Entities;
 
-public enum AppUserRole {
+public enum ERole {
     USER,
     ADMIN
 }

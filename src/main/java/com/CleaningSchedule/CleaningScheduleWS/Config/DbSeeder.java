@@ -3,6 +3,7 @@ package com.CleaningSchedule.CleaningScheduleWS.Config;
 import com.CleaningSchedule.CleaningScheduleWS.Entities.Room;
 import com.CleaningSchedule.CleaningScheduleWS.Entities.ScheduleItem;
 import com.CleaningSchedule.CleaningScheduleWS.Entities.Task;
+import com.CleaningSchedule.CleaningScheduleWS.Repository.RoleRepository;
 import com.CleaningSchedule.CleaningScheduleWS.Repository.RoomRepository;
 import com.CleaningSchedule.CleaningScheduleWS.Repository.ScheduleItemRepository;
 import com.CleaningSchedule.CleaningScheduleWS.Repository.TaskRepository;
@@ -17,12 +18,14 @@ public class DbSeeder {
     private RoomRepository roomRepository;
     private ScheduleItemRepository scheduleItemRepository;
     private TaskRepository taskRepository;
+    private RoleRepository roleRepository;
 
     @Autowired
-    public DbSeeder ( RoomRepository roomRepository, ScheduleItemRepository scheduleItemRepository, TaskRepository taskRepository) {
+    public DbSeeder ( RoomRepository roomRepository, ScheduleItemRepository scheduleItemRepository, TaskRepository taskRepository, RoleRepository roleRepository) {
         this.roomRepository = roomRepository;
         this.scheduleItemRepository = scheduleItemRepository;
         this.taskRepository = taskRepository;
+        this.roleRepository = roleRepository;
     }
 
     @EventListener
