@@ -17,4 +17,5 @@ public class ScheduleItemDTO {
     private LocalDateTime lastComplete;
     private Integer task_id;
     private Integer room_id;
+    private Long user_id;
 }

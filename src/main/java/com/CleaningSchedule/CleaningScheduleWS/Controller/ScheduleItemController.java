@@ -58,6 +58,19 @@ public class ScheduleItemController {
         return new ResponseEntity<>(httpStatus);
     }
 
+    @PutMapping
+    public ResponseEntity<Object> toggleComplete(@RequestBody ScheduleItemDTO scheduleItem) {
+        HttpStatus httpStatus;
+        try {
+            scheduleItemService.toggleCompleteItem(scheduleItem);
+            httpStatus = HttpStatus.OK;
+        } catch (Exception e) {
+            System.out.println("e: " + e.getMessage());
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<>(httpStatus);
+    }
+
     /*@PutMapping
     public ResponseEntity<Object> updateScheduleItem(@RequestBody ScheduleItemDTO scheduleItemDTO) {
         HttpStatus httpStatus;

@@ -7,9 +7,11 @@ import com.CleaningSchedule.CleaningScheduleWS.Entities.Task;
 import com.CleaningSchedule.CleaningScheduleWS.Repository.RoomRepository;
 import com.CleaningSchedule.CleaningScheduleWS.Repository.ScheduleItemRepository;
 import com.CleaningSchedule.CleaningScheduleWS.Repository.TaskRepository;
+import com.CleaningSchedule.CleaningScheduleWS.Repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +24,7 @@ public class ScheduleItemService {
     private final ScheduleItemRepository scheduleItemRepository;
     private final RoomRepository roomRepository;
     private final TaskRepository taskRepository;
+    private final UserRepository userRepository;
 
     public List<ScheduleItemDTO> getAllItems() {
         List<ScheduleItem> itemList = new ArrayList<>();
@@ -46,6 +49,18 @@ public class ScheduleItemService {
                 scheduleItem.setTask(task);
                 scheduleItem.setIsActive(item.getIsActive());
                 scheduleItemRepository.save(scheduleItem);
+            }
+        }
+    }
+
+    public void toggleCompleteItem(ScheduleItemDTO scheduleItemDTO) {
+        Optional<ScheduleItem> scheduleItemOptional = scheduleItemRepository.findById(scheduleItemDTO.getId());
+        if (scheduleItemOptional.isPresent()) {
+            ScheduleItem scheduleItem = scheduleItemOptional.get();
+            scheduleItem.setIsComplete(scheduleItemDTO.getIsComplete());
+            if (scheduleItem.getIsComplete()) {
+                scheduleItem.setLastComplete(LocalDateTime.now());
+                scheduleItem.setLastCompleteBy(userRepository.findById(scheduleItemDTO.getUser_id()).get());
             }
         }
     }

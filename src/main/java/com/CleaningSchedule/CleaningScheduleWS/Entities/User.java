@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -28,6 +29,9 @@ public class User {
                 joinColumns = @JoinColumn(name = "user_id"),
                 inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
+    private List<ScheduleItem> ScheduleItems;
 
     public User(String username, String email, String password) {
         this.username = username;

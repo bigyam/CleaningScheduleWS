@@ -28,6 +28,10 @@ public class ScheduleItem {
     private LocalDateTime lastComplete;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "last_complete_by")
+    private User lastCompleteBy;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "task_id")
     private Task task;
 
