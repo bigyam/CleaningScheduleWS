@@ -42,6 +42,7 @@ public class ScheduleItemService {
             scheduleItem = scheduleItemRepository.findByYearScopeAndRoomAndTask(item.getYearScope(), room, task);
 
             if (scheduleItem == null) {
+                item.setIsActive(true);
                 scheduleItemRepository.save(this.convertDtoToEntity(item));
             } else {
                 scheduleItem.setYearScope(item.getYearScope());
