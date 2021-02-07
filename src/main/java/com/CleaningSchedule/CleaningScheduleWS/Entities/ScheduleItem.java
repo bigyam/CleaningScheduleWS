@@ -28,7 +28,7 @@ public class ScheduleItem {
     private LocalDateTime lastComplete;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "last_complete_by")
+    @JoinColumn(name = "last_complete_by")
     private User lastCompleteBy;
 
     @ManyToOne(fetch = FetchType.LAZY)

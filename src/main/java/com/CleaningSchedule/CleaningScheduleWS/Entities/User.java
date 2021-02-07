@@ -30,7 +30,7 @@ public class User {
                 inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lastCompleteBy")
     private List<ScheduleItem> ScheduleItems;
 
     public User(String username, String email, String password) {

@@ -60,8 +60,9 @@ public class ScheduleItemService {
             scheduleItem.setIsComplete(scheduleItemDTO.getIsComplete());
             if (scheduleItem.getIsComplete()) {
                 scheduleItem.setLastComplete(LocalDateTime.now());
-                scheduleItem.setLastCompleteBy(userRepository.findById(scheduleItemDTO.getUser_id()).get());
+                scheduleItem.setLastCompleteBy(userRepository.findById(scheduleItemDTO.getLastCompletedBy()).get());
             }
+            scheduleItemRepository.save(scheduleItem);
         }
     }
 
@@ -112,6 +113,7 @@ public class ScheduleItemService {
                 .lastComplete(scheduleItemEntity.getLastComplete())
                 .room_id(scheduleItemEntity.getRoom().getId())
                 .task_id(scheduleItemEntity.getTask().getId())
+                .lastCompletedBy(scheduleItemEntity.getLastCompleteBy() != null ? scheduleItemEntity.getLastCompleteBy().getId() : null)
                 .build();
     }
 
@@ -124,6 +126,7 @@ public class ScheduleItemService {
                 .lastComplete(scheduleItemDTO.getLastComplete() != null ? scheduleItemDTO.getLastComplete() : null)
                 .room(roomRepository.findById(scheduleItemDTO.getRoom_id()).get())
                 .task(taskRepository.findById(scheduleItemDTO.getTask_id()).get())
+                .lastCompleteBy(userRepository.findById(scheduleItemDTO.getLastCompletedBy()).get())
                 .build();
     }
 }
