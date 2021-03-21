@@ -1,8 +1,6 @@
 package com.CleaningSchedule.CleaningScheduleWS.Config;
 
-import com.CleaningSchedule.CleaningScheduleWS.Entities.Room;
-import com.CleaningSchedule.CleaningScheduleWS.Entities.ScheduleItem;
-import com.CleaningSchedule.CleaningScheduleWS.Entities.Task;
+import com.CleaningSchedule.CleaningScheduleWS.Entities.*;
 import com.CleaningSchedule.CleaningScheduleWS.Repository.RoleRepository;
 import com.CleaningSchedule.CleaningScheduleWS.Repository.RoomRepository;
 import com.CleaningSchedule.CleaningScheduleWS.Repository.ScheduleItemRepository;
@@ -34,11 +32,15 @@ public class DbSeeder {
     }
 
     private void seed() {
-        /*//Room room = Room.builder().id(6).roomName("test").complexity(3).build();
-        //Task task = Task.builder().id(1).taskName("test").build();
+        Role roleUser = Role.builder().id(1).name(ERole.USER).build();
+        Role roleAdmin = Role.builder().id(2).name(ERole.ADMIN).build();
+        Room room = Room.builder().id(6).roomName("test").complexity(3).build();
+        Task task = Task.builder().id(1).taskName("test").build();
         //ScheduleItem item = ScheduleItem.builder().id(1).isActive(true).isComplete(false).lastComplete(null).yearScope(2).room(room).task(task).build();
         taskRepository.save(task);
         roomRepository.save(room);
-        //scheduleItemRepository.save(item);*/
+        roleRepository.save(roleAdmin);
+        roleRepository.save(roleUser);
+        //scheduleItemRepository.save(item);
     }
 }

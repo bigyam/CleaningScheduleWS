@@ -1,9 +1,15 @@
 package com.CleaningSchedule.CleaningScheduleWS.Entities;
 
+import lombok.*;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "roles")
+@Builder
+@AllArgsConstructor
+@Getter
+@Setter
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

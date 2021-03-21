@@ -10,8 +10,8 @@
 	</parent>
 	<groupId>com.CleaningSchedule</groupId>
 	<artifactId>CleaningScheduleWS</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<version>0.0.1</version>
+	<packaging>jar</packaging>
 	<name>CleaningScheduleWS</name>
 	<description>Cleaning Schedule Webservice</description>
 
